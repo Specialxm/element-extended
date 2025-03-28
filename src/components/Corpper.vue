@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
-const canvasRef = ref(null)
-const imgRef = ref(null)
+const canvasRef = ref<HTMLCanvasElement | null>(null)
+const imgRef = ref<HTMLImageElement | null>(null)
 const polygons = ref([]) // 存储多个选区的顶点数组
 const selectedIndex = ref(null) // 当前选中的选区索引
 const isDrawing = ref(false)
@@ -10,11 +10,11 @@ const draggingPoint = ref(null) // 记录正在拖动的点索引
 
 // 载入图片
 const loadImage = () => {
-  const img = imgRef.value
+  const img = imgRef.value!
   img.crossOrigin = 'anonymous'
   img.onload = () => {
-    const canvas = canvasRef.value
-    const ctx = canvas.getContext('2d')
+    const canvas = canvasRef.value!
+    const ctx = canvas.getContext('2d')!
     canvas.width = img.width
     canvas.height = img.height
     ctx.drawImage(img, 0, 0)
