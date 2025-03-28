@@ -9,7 +9,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 export default defineConfig({
   build: {
     lib: {
-      entry: 'src/index.ts',
+      entry: 'packages/index.ts',
       name: 'MyVueLib',
       fileName: (format) => `my-vue-lib.${format}.js`,
     },
