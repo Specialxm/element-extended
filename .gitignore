@@ -19,4 +19,4 @@ packages/element-plus/version.ts
 cypress/screenshots/*
 cypress/videos/*
 tmp
-docs/docs/.vitepress/cache
+docs/.vitepress/cache
