@@ -12,10 +12,6 @@
     }
   ],
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "dist/types",
-    "emitDeclarationOnly": false,
-    "outDir": "dist",
     "module": "NodeNext"
   }
 }

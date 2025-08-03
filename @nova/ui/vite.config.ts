@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import dts from 'vite-plugin-dts'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -27,7 +28,17 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue(), vueJsx(), vueDevTools()],
+  plugins: [
+    vue(),
+    dts({
+      outDir: 'dist/types',
+      insertTypesEntry: true, // 自动生成类型入口文件
+      tsconfigPath: './tsconfig.build.json',
+      include: ['packages/*'],
+    }),
+    vueJsx(),
+    vueDevTools(),
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

@@ -1,8 +1,9 @@
 import { withInstall } from './utils'
-import Button from './components/Button.vue'
+import button from './components/NovaButton.vue'
 
-export const MyButton = withInstall(Button)
-export default MyButton
+const NovaButton = withInstall(button)
+
+export { NovaButton }
 
 export type User = {
   name: string

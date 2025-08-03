@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
-    "build:types": "tsc",
     "preview": "vite preview",
     "test:unit": "vitest",
     "prepare": "cypress install",
@@ -26,13 +25,17 @@
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./src/index.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "element-plus": "^2.10.4",
     "pinia": "^3.0.1",
@@ -63,6 +66,7 @@
     "start-server-and-test": "^2.0.10",
     "typescript": "~5.8.0",
     "vite": "^6.2.1",
+    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-vue-devtools": "^7.7.2",
     "vitepress": "^1.6.3",
     "vitepress-plugin-demoblock": "1.0.10",
