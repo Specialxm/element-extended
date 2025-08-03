@@ -1,0 +1,19 @@
+{
+  "name": "@nova/shared",
+  "version": "1.0.0",
+  "description": "Vue3工具库",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  }
+}

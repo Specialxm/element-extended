@@ -1,22 +1,33 @@
-# Editor directories and files
-.idea
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Package Manager
 node_modules
-.pnpm-debug.log*
-
-# System
 .DS_Store
-
-# Bundle
 dist
+dist-ssr
 coverage
-packages/element-plus/version.ts
+*.local
 
-# local env files
 *.local
 .eslintcache
 cypress/screenshots/*
 cypress/videos/*
-tmp
-docs/.vitepress/cache
+*/docs/.vitepress/cache
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo

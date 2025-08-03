@@ -1,0 +1,20 @@
+{
+  "name": "@nova/cli",
+  "version": "1.0.0",
+  "description": "命令行工具",
+  "main": "dist/index.js",
+  "bin": {
+    "nova-cli": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.9",
+    "typescript": "^5.9.2"
+  }
+}
