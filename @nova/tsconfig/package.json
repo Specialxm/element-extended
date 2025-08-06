@@ -1,0 +1,12 @@
+{
+  "name": "@vben/tsconfig",
+  "version": "5.5.8",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "base.json",
+    "node.json"
+  ],
+  "dependencies": {}
+}
