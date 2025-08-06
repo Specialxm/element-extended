@@ -21,5 +21,7 @@
     },
     "./package.json": "./package.json"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@nova/tsconfig": "workspace:*"
+  }
 }

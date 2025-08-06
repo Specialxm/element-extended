@@ -1,0 +1,18 @@
+{
+  "name": "@nova/web",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build --mode production",
+    "build:analyze": "pnpm vite build --mode analyze",
+    "dev": "pnpm vite --mode development",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
+  },
+  "dependencies": {
+    "@nova/shared": "workspace:*",
+    "@nova/ui": "workspace:*"
+  },
+  "devDependencies": {}
+}
