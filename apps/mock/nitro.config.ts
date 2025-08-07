@@ -2,6 +2,7 @@ import errorHandler from './error'
 
 process.env.COMPATIBILITY_DATE = new Date().toISOString()
 export default defineNitroConfig({
+  preset: 'vercel',
   devErrorHandler: errorHandler,
   errorHandler: '~/error',
   routeRules: {

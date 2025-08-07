@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "buildCommand": "pnpm install && pnpm build",
+  "outputDirectory": ".output"
+}
