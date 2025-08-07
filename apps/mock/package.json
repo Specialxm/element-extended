@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "nitropack": "catalog:"
+    "nitropack": "catalog:",
+    "vercel": "catalog:"
   }
 }

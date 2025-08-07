@@ -20,6 +20,7 @@ catalog:
   pinia: ^3.0.3
   prettier: 3.6.2
   typescript: ~5.8.0
+  vercel: ^44.7.3
   vite: ^7.0.6
   vite-plugin-vue-devtools: ^8.0.0
   vue: ^3.5.18
