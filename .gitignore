@@ -21,6 +21,7 @@ cypress/videos/*
 */docs/.vitepress/cache
 **/.nitro
 **/.vercel
+**/.output
 
 # Editor directories and files
 .vscode/*
