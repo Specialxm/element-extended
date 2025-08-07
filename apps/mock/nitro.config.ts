@@ -11,7 +11,7 @@ export default defineNitroConfig({
     },
   },
   devErrorHandler: errorHandler,
-  errorHandler: '~/error',
+  // errorHandler: '~/error',
   routeRules: {
     '/api/**': {
       cors: true,
