@@ -19,7 +19,7 @@ export default defineComponent({
   components: { NovaButton },
   setup() {
     server({
-      url: '/api/hello',
+      url: '/hello',
       method: 'get',
     }).then((res) => {
       console.log(res, '---hello---')
