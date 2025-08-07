@@ -13,8 +13,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "nitropack": "^2.6.2",
-    "h3": "^1.15.4",
-    "vercel": "^44.7.3"
+    "nitropack": "^2.6.2"
   }
 }
