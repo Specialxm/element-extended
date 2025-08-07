@@ -18,5 +18,5 @@ process.env.COMPATIBILITY_DATE = new Date().toISOString()
 //   },
 // })
 export default defineNitroConfig({
-  srcDir: 'routes',
+  srcDir: 'api',
 })
