@@ -4,7 +4,7 @@ import axios from 'axios'
 
 //创建一个axios实例
 const server = axios.create({
-  baseURL: '',
+  baseURL: import.meta.env.PROD ? import.meta.env.VITE_GLOB_API_URL : '/api',
   timeout: 20000,
 })
 
