@@ -18,7 +18,8 @@ export default defineNitroConfig({
         'Access-Control-Allow-Headers':
           'Accept, Authorization, Content-Length, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, X-CSRF-TOKEN, X-Requested-With',
         'Access-Control-Allow-Methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        'Access-Control-Allow-Origin': '*',
+        // 不要用 *，要设置明确的 origin，例如：
+        'Access-Control-Allow-Origin': 'https://your-frontend-domain.vercel.app',
         'Access-Control-Expose-Headers': '*',
       },
     },
