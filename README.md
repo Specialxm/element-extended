@@ -1,39 +1,25 @@
-# monorepo
+# Frontend Monorepo Example
 
-This template should help get you started developing with Vue 3 in Vite.
+> Vue 3 + Vite + TS + Monorepo 工程实践项目
 
-## Recommended IDE Setup
+## 🌟 Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- 🧩 多 Web 应用（web-admin / ...）
+- 📦 Monorepo 架构（组件、工具复用）
+- 🚀 Vite 极速构建，支持多入口
+- 🔍 完善的类型提示与自动化工具链
+- 🧪 TypeScript + ESLint + Prettier
 
-## Type Support for `.vue` Imports in TS
+## 📁 项目结构
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- `apps/`：主应用目录
+- `packages/ui/`：UI组件库
+- `packages/shared/`：通用工具函数
 
-## Customize configuration
+## 📦 快速启动
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+```bash
+pnpm install
+pnpm dev   # 启动所有应用
+pnpm build # 构建所有应用
 ```

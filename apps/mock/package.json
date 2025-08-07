@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "nitro build",
-    "start": "nitro dev"
+    "dev": "nitro dev"
   },
   "keywords": [],
   "author": "",

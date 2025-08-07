@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "main": "./index.ts",
   "type": "module",
-  "scripts": {},
   "exports": {
     ".": {
       "import": "./index.ts",
-      "require": "./index.ts"
+      "require": "./index.ts",
+      "types": "./src/index.d.ts",
+      "default": "./src/index.ts"
     }
   },
   "keywords": [],

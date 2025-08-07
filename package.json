@@ -3,15 +3,20 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "dev": "pnpm --filter web dev",
-    "start:mock": "pnpm --filter mock start",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
+    "build": "run-p type-check \"build-only {@}\" \"build:admin {@}\" --",
+    "build:admin": "pnpm run -C apps/web-admin build",
     "build-only": "vite build",
+    "dev": "vite",
+    "dev:admin": "pnpm --filter web-admin dev",
+    "dev:mock": "pnpm --filter mock dev",
+    "preview": "vite preview",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",

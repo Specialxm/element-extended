@@ -22,5 +22,9 @@ export default defineConfig(({}) => {
         // '@nona/mock': fileURLToPath(new URL('./apps/mock', import.meta.url)),
       },
     },
+    build: {
+      outDir: 'dist',
+      emptyOutDir: true,
+    },
   }
 })
