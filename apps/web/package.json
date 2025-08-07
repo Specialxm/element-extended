@@ -13,7 +13,7 @@
   "dependencies": {
     "@nova/shared": "workspace:*",
     "@nova/ui": "workspace:*",
-    "axios": "^1.11.0"
+    "axios": "catalog:"
   },
   "devDependencies": {}
 }
