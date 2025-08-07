@@ -19,6 +19,7 @@ coverage
 cypress/screenshots/*
 cypress/videos/*
 */docs/.vitepress/cache
+**/.nitro
 
 # Editor directories and files
 .vscode/*

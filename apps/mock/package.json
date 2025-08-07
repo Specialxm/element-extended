@@ -1,0 +1,17 @@
+{
+  "name": "@nova/mock",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nitro build",
+    "start": "nitro dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "nitropack": "^2.6.2"
+  }
+}

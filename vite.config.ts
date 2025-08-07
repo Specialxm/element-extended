@@ -7,19 +7,5 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue(), vueJsx(), vueDevTools()],
-  resolve: {
-    // alias: {
-    //   '@': fileURLToPath(new URL('./apps/web', import.meta.url)),
-    // },
-  },
-  build: {
-    lib: {
-      entry: 'apps/web/main.ts',
-      name: 'MyLib',
-      fileName: 'my-lib',
-    },
-    rollupOptions: {
-      input: 'apps/web/main.ts',
-    },
-  },
+  resolve: {},
 })

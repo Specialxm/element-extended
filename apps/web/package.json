@@ -4,15 +4,16 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "dev": "vite",
     "build": "pnpm vite build --mode production",
     "build:analyze": "pnpm vite build --mode analyze",
-    "dev": "pnpm vite --mode development",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@nova/shared": "workspace:*",
-    "@nova/ui": "workspace:*"
+    "@nova/ui": "workspace:*",
+    "axios": "^1.11.0"
   },
   "devDependencies": {}
 }

@@ -7,7 +7,8 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "pnpm --filter web dev",
+    "start:mock": "pnpm --filter mock start",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -16,8 +17,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@nova/tsconfig": "workspace:*",
+    "@nova/mock": "workspace:*",
     "@nova/shared": "workspace:*",
+    "@nova/tsconfig": "workspace:*",
     "@nova/ui": "workspace:*",
     "pinia": "^3.0.3",
     "vue": "^3.5.18",

@@ -12,11 +12,19 @@
 import { defineComponent } from 'vue'
 import { NovaButton } from '@nova/ui'
 import { formatDate, generateId } from '@nova/shared'
+import server from './utils/server'
 
 export default defineComponent({
   name: 'App',
   components: { NovaButton },
   setup() {
+    server({
+      url: '/api/hello',
+      method: 'get',
+    }).then((res) => {
+      console.log(res, '---hello---')
+    })
+
     return {
       randomId: generateId(),
       formattedDate: formatDate(new Date(), 'YYYY年MM月DD日'),
