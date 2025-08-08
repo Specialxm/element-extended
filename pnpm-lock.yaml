@@ -146,12 +146,13 @@ importers:
 
   apps/mock:
     dependencies:
-      h3:
-        specifier: ^1.15.4
-        version: 1.15.4
       nitropack:
-        specifier: ^2.6.2
+        specifier: latest
         version: 2.12.4(@netlify/blobs@9.1.2)
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.10
 
   apps/web-admin:
     dependencies:
@@ -3068,6 +3069,10 @@ packages:
 
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
+
+  rimraf@5.0.10:
+    resolution: {integrity: sha512-l0OE8wL34P4nJH/H2ffoaniAokM2qSmrtXHmlpvYr5AVVX8msAyW0l8NVJFDxlSK4u3Uh/f41cQheDVdnYijwQ==}
+    hasBin: true
 
   rollup-plugin-visualizer@6.0.3:
     resolution: {integrity: sha512-ZU41GwrkDcCpVoffviuM9Clwjy5fcUxlz0oMoTXTYsK+tcIFzbdacnrr2n8TXcHxbGKKXtOdjxM2HUS4HjkwIw==}
@@ -6684,6 +6689,10 @@ snapshots:
   reusify@1.1.0: {}
 
   rfdc@1.4.1: {}
+
+  rimraf@5.0.10:
+    dependencies:
+      glob: 10.4.5
 
   rollup-plugin-visualizer@6.0.3(rollup@4.46.2):
     dependencies:
