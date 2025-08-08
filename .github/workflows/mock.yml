@@ -19,7 +19,8 @@ jobs:
           node-version: '20'
 
       - run: |
-          npx nypm install
+          pnpm i pnpm@latest -g # 确保使用最新 pnpm
+          pnpm install
           npm run build:mock
         env:
           NITRO_PRESET: github_pages
