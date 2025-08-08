@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "h3": "^1.15.4",
     "nitropack": "^2.6.2"
   }
 }
