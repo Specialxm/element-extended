@@ -19,8 +19,7 @@ jobs:
           node-version: '18'
 
       - run: |
-          pnpm i pnpm@latest -g # 确保使用最新 pnpm
-          pnpm install
+          npx nypm install
           npm run build:mock
         env:
           NITRO_PRESET: github_pages
@@ -51,4 +50,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v3
