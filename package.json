@@ -14,7 +14,7 @@
     "build:admin": "pnpm run -C apps/web-admin build",
     "build-only": "vite build",
     "dev": "vite",
-    "dev:admin": "pnpm --filter web-admin dev",
+    "dev:admin": "pnpm --filter admin dev",
     "dev:mock": "pnpm --filter mock dev",
     "preview": "vite preview",
     "type-check": "vue-tsc --build",

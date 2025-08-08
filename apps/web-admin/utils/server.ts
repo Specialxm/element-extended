@@ -2,9 +2,11 @@
 
 import axios from 'axios'
 
+console.log('import.meta.env.PROD', import.meta.env)
+
 //创建一个axios实例
 const server = axios.create({
-  baseURL: import.meta.env.PROD ? import.meta.env.VITE_GLOB_API_URL : '/api',
+  baseURL: import.meta.env.VITE_GLOB_API_URL,
   timeout: 20000,
 })
 
@@ -16,7 +18,7 @@ server.interceptors.request.use(
     config.url += `?${_t}`
 
     // 请求头携带token
-    config.headers['token'] = localStorage.getItem('token') || ''
+    // config.headers['token'] = localStorage.getItem('token') || ''
 
     // 在发送请求之前做些什么
     // console.log('我要准备请求啦------')
