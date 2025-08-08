@@ -18,7 +18,9 @@ coverage
 .eslintcache
 cypress/screenshots/*
 cypress/videos/*
-*/docs/.vitepress/cache
+docs/.vuepress/.cache
+docs/.vuepress/.temp
+docs/.vuepress/dist
 **/.nitro
 **/.vercel
 **/.output

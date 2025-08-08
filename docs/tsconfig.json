@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {}
+  },
+  "include": [
+    ".vitepress/*.mts",
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.vue",
+    "src/*.mts",
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
+  "exclude": ["node_modules", ".vitepress/.cache/*", ".vitepress/.temp/*", ".vitepress/dist/*"]
+}

@@ -1,8 +1,9 @@
 packages:
   - '@nova/*'
-  - 'apps/*'
-  - 'packages/*'
-  - 'scripts/*'
+  - apps/*
+  - docs/*
+  - packages/*
+  - scripts/*
 catalog:
   '@tsconfig/node22': ^22.0.2
   '@types/node': ^22.16.5
