@@ -3,40 +3,40 @@ import { defineComponent } from 'vue'
 import { NovaButton } from '@nova/ui'
 import { formatDate, generateId } from '@nova/shared'
 import server from './utils/server'
-
-const aaa = {
-              a: 1
-}
+import { ElButton } from 'element-plus'
 
 export default defineComponent({
   name: 'App',
-  components: { NovaButton },
+  components: { NovaButton, ElButton },
   setup() {
     server({
       url: '/hello',
-      method: 'get',
+      method: 'get'
     }).then((res) => {
       console.log(res, '---hello---')
     })
 
+    const aaa = {
+      a: 1
+    }
     return {
       randomId: generateId(),
-      formattedDate: formatDate(new Date(), 'YYYY年MM月DD日'),
+      formattedDate: formatDate(new Date(), 'YYYY年MM月DD日')
     }
-  },
+  }
 })
 </script>
-
 <template>
   <div class="app-container">
     <h1>Monorepo工程化项目</h1>
     <p>这是一个基于Vue3+TypeScript+Vite的Monorepo工程化案例</p>
     <NovaButton type="primary">测试组件库</NovaButton>
+    <NovaButton type="primary">测试组件库</NovaButton>
+    <ElButton type="primary">测试组件库</ElButton>
     <p>随机ID: {{ randomId }}</p>
     <p>当前日期: {{ formattedDate }}</p>
   </div>
 </template>
-
 <style scoped>
 .app-container {
   max-width: 800px;

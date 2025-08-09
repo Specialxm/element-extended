@@ -1,13 +1,15 @@
-import type { Linter } from 'eslint';
+import type { Linter } from 'eslint'
 
-import { interopDefault } from '../util';
+import { interopDefault } from '../util'
+// import pluginTs from '@typescript-eslint/eslint-plugin'
+// import parserTs from '@typescript-eslint/parser'
 
 export async function typescript(): Promise<Linter.Config[]> {
   const [pluginTs, parserTs] = await Promise.all([
     interopDefault(import('@typescript-eslint/eslint-plugin')),
     // @ts-expect-error missing types
-    interopDefault(import('@typescript-eslint/parser')),
-  ] as const);
+    interopDefault(import('@typescript-eslint/parser'))
+  ] as const)
 
   console.log(pluginTs, parserTs)
 
@@ -19,17 +21,17 @@ export async function typescript(): Promise<Linter.Config[]> {
         parserOptions: {
           createDefaultProgram: false,
           ecmaFeatures: {
-            jsx: true,
+            jsx: true
           },
           ecmaVersion: 'latest',
           extraFileExtensions: ['.vue'],
           jsxPragma: 'React',
           project: './tsconfig.*.json',
-          sourceType: 'module',
-        },
+          sourceType: 'module'
+        }
       },
       plugins: {
-        '@typescript-eslint': pluginTs,
+        '@typescript-eslint': pluginTs
       },
       rules: {
         ...pluginTs.configs['eslint-recommended'].overrides?.[0].rules,
@@ -40,8 +42,8 @@ export async function typescript(): Promise<Linter.Config[]> {
             'ts-check': false,
             'ts-expect-error': 'allow-with-description',
             'ts-ignore': 'allow-with-description',
-            'ts-nocheck': 'allow-with-description',
-          },
+            'ts-nocheck': 'allow-with-description'
+          }
         ],
 
         // '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
@@ -51,8 +53,8 @@ export async function typescript(): Promise<Linter.Config[]> {
         '@typescript-eslint/no-empty-function': [
           'error',
           {
-            allow: ['arrowFunctions', 'functions', 'methods'],
-          },
+            allow: ['arrowFunctions', 'functions', 'methods']
+          }
         ],
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-namespace': 'off',
@@ -62,13 +64,13 @@ export async function typescript(): Promise<Linter.Config[]> {
           'error',
           {
             argsIgnorePattern: '^_',
-            varsIgnorePattern: '^_',
-          },
+            varsIgnorePattern: '^_'
+          }
         ],
         '@typescript-eslint/no-use-before-define': 'off',
         '@typescript-eslint/no-var-requires': 'error',
-        'unused-imports/no-unused-vars': 'off',
-      },
-    },
-  ];
+        'unused-imports/no-unused-vars': 'off'
+      }
+    }
+  ]
 }

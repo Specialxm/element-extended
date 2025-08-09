@@ -1,13 +1,24 @@
 import type { Linter } from 'eslint'
 
-import { vue, typescript } from './configs'
+import { vue, javascript, typescript, prettier, ignores } from './configs'
 
 type FlatConfig = Linter.Config
 
-type FlatConfigPromise = FlatConfig | FlatConfig[] | Promise<FlatConfig> | Promise<FlatConfig[]>
+type FlatConfigPromise =
+  | FlatConfig
+  | FlatConfig[]
+  | Promise<FlatConfig>
+  | Promise<FlatConfig[]>
 
 async function defineConfig(config: FlatConfig[] = []) {
-  const configs: FlatConfigPromise[] = [vue(), typescript(), ...config]
+  const configs: FlatConfigPromise[] = [
+    vue(),
+    javascript(),
+    ignores(),
+    typescript(),
+    prettier(),
+    ...config
+  ]
 
   const resolved = await Promise.all(configs)
 

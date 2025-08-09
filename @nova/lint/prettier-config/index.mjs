@@ -1,8 +1,11 @@
 export default {
-  endOfLine: 'auto',
-  printWidth: 80,
-  proseWrap: 'never',
-  semi: true,
+  semi: false,
+  trailingComma: 'none',
   singleQuote: true,
-  trailingComma: 'all',
+  printWidth: 80,
+  tabWidth: 2,
+  useTabs: false,
+  bracketSpacing: true,
+  vueIndentScriptAndStyle: false,
+  endOfLine: 'lf'
 }
