@@ -1,3 +1,7 @@
+export function sum(a: number, b: number) {
+  return a + b
+}
+
 /**
  * 格式化日期
  * @param date 日期对象或日期字符串

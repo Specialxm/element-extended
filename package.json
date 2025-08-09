@@ -20,6 +20,7 @@
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
+    "test:unit": "vitest run --dom",
     "catalog": "pnpx codemod pnpm/catalog"
   },
   "dependencies": {
@@ -41,12 +42,14 @@
     "@vue/tsconfig": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-vue": "catalog:",
+    "happy-dom": "^18.0.1",
     "jiti": "catalog:",
     "npm-run-all2": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-vue-devtools": "catalog:",
+    "vitest": "catalog:",
     "vue-tsc": "catalog:"
   }
 }
