@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "type": "module",
+  "description": "nova 项目运行脚本",
   "scripts": {
     "stub": "pnpm unbuild --stub"
   },
@@ -22,6 +23,12 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "@nova/tsconfig": "workspace:*"
+    "@nova/tsconfig": "workspace:*",
+    "commander": "^14.0.0",
+    "execa": "^9.6.0",
+    "inquirer": "^12.9.1"
+  },
+  "devDependencies": {
+    "unbuild": "catalog:"
   }
 }

@@ -5,8 +5,7 @@
   "type": "module",
   "main": "./index.ts",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch"
+    "build": "vite build"
   },
   "sideEffects": [
     "**/*.css"

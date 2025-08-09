@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rimraf .output && nitro build",
-    "dev": "nitro dev",
+    "start": "nitro dev",
     "prepare": "nitro prepare",
     "preview": "node .output/server/index.mjs"
   },
