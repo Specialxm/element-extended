@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "apps/web-admin/**/*", "apps/web-admin/**/*.vue"],
+  "include": ["env.d.ts", "apps/**/*", "apps/**/*.vue", "**/*.ts"],
   "exclude": ["apps/web-admin/**/__tests__/*"],
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo"

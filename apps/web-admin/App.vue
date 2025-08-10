@@ -1,13 +1,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+
 import { NovaButton } from '@nova/ui'
 import { formatDate, generateId } from '@nova/shared'
 import server from './utils/server'
-import { ElButton } from 'element-plus'
 
 export default defineComponent({
   name: 'App',
-  components: { NovaButton, ElButton },
+  components: { NovaButton },
   setup() {
     server({
       url: '/hello',
@@ -16,9 +16,6 @@ export default defineComponent({
       console.log(res, '---hello---')
     })
 
-    const aaa = {
-      a: 1
-    }
     return {
       randomId: generateId(),
       formattedDate: formatDate(new Date(), 'YYYY年MM月DD日')

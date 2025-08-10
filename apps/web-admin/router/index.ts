@@ -5,12 +5,4 @@ const router = createRouter({
   routes: []
 })
 
-const aaa = {
-  a: 1
-}
-
-function a() {
-  console.log()
-}
-
 export default router
