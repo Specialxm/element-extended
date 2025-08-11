@@ -41,13 +41,14 @@ api.interceptors.response.use(
       const { status } = error.response
 
       switch (status) {
-        case 401:
+        case 401: {
           // 未授权，清除本地认证信息并跳转登录
           clearAuth()
           const userStore = useUserStore()
           userStore.$reset()
           window.location.href = '/login'
           break
+        }
 
         case 403:
           // 禁止访问

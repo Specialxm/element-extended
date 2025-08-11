@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '../stores/user'
+// import { useUserStore } from '../stores/user'
 
 const Navigation = defineAsyncComponent(
   () => import('../components/Navigation.vue')
 )
 
 const router = useRouter()
-const userStore = useUserStore()
+// const userStore = useUserStore()
 
-const username = computed(() => userStore.username)
-const loading = computed(() => userStore.loading)
+// const username = computed(() => userStore.username)
+// const loading = computed(() => userStore.loading)
 
-const handleLogout = async () => {
-  const result = await userStore.logout()
-  if (result.success) {
-    // 登出成功，跳转到登录页面
-    router.push('/login')
-  }
-}
+// const handleLogout = async () => {
+//   const result = await userStore.logout()
+//   if (result.success) {
+//     // 登出成功，跳转到登录页面
+//     router.push('/login')
+//   }
+// }
 
 const goToTest = () => {
   router.push('/test')
