@@ -1,44 +1,39 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-import { NovaButton } from '@nova/ui'
-import { formatDate, generateId } from '@nova/shared'
-import server from './utils/server'
-
-export default defineComponent({
-  name: 'App',
-  components: { NovaButton },
-  setup() {
-    server({
-      url: '/hello',
-      method: 'get'
-    }).then((res) => {
-      console.log(res, '---hello---')
-    })
-
-    return {
-      randomId: generateId(),
-      formattedDate: formatDate(new Date(), 'YYYY年MM月DD日')
-    }
-  }
-})
+<script setup lang="ts">
+// 使用 router-view 来显示路由内容
 </script>
+
 <template>
-  <div class="app-container">
-    <h1>Monorepo工程化项目</h1>
-    <p>这是一个基于Vue3+TypeScript+Vite的Monorepo工程化案例</p>
-    <NovaButton type="primary">测试组件库</NovaButton>
-    <NovaButton type="primary">测试组件库</NovaButton>
-    <ElButton type="primary">测试组件库</ElButton>
-    <p>随机ID: {{ randomId }}</p>
-    <p>当前日期: {{ formattedDate }}</p>
+  <div id="app">
+    <router-view />
   </div>
 </template>
-<style scoped>
-.app-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
+
+<style>
+#app {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+button {
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
 }
 </style>
