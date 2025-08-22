@@ -9,7 +9,7 @@ import { useUserStore } from '../stores/user'
 
 // 创建 axios 实例
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
@@ -115,48 +115,33 @@ export const authAPI = {
   }
 }
 
-export const userAPI = {
-  // 获取用户列表
-  getUsers: (params?: any) => {
-    return api.get('/users', { params })
-  },
-
-  // 获取单个用户
-  getUser: (id: string) => {
-    return api.get(`/users/${id}`)
-  },
-
-  // 创建用户
-  createUser: (data: any) => {
-    return api.post('/users', data)
-  },
-
-  // 更新用户
-  updateUser: (id: string, data: any) => {
-    return api.put(`/users/${id}`, data)
-  },
-
-  // 删除用户
-  deleteUser: (id: string) => {
-    return api.delete(`/users/${id}`)
-  }
-}
-
+// 仪表板相关 API
 export const dashboardAPI = {
   // 获取统计数据
-  getStats: () => {
-    return api.get('/dashboard/stats')
-  },
-
-  // 获取图表数据
-  getChartData: (type: string, params?: any) => {
-    return api.get(`/dashboard/charts/${type}`, { params })
-  },
+  getStats: () => api.get('/dashboard/stats'),
 
   // 获取最近活动
-  getRecentActivity: (limit?: number) => {
-    return api.get('/dashboard/activity', { params: { limit } })
-  }
+  getRecentActivity: (limit: number = 10) =>
+    api.get(`/dashboard/activity?limit=${limit}`)
+}
+
+// 用户管理相关 API
+export const userAPI = {
+  // 获取用户列表
+  getUserList: (params: any) => api.get('/users', { params }),
+
+  // 创建用户
+  createUser: (userData: any) => api.post('/users', userData),
+
+  // 更新用户
+  updateUser: (id: string, userData: any) => api.put(`/users/${id}`, userData),
+
+  // 删除用户
+  deleteUser: (id: string) => api.delete(`/users/${id}`),
+
+  // 批量删除用户
+  batchDeleteUsers: (userIds: string[]) =>
+    api.post('/users/batch-delete', { userIds })
 }
 
 // 导出 axios 实例，用于自定义请求

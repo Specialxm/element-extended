@@ -1,5 +1,3 @@
-import { defineEventHandler } from "h3"
-
 export default defineEventHandler(() => {
   return {
     userName: 'nova',
@@ -8,6 +6,6 @@ export default defineEventHandler(() => {
     password: '123456',
     role: 'admin',
     createTime: new Date().toISOString(),
-    updateTime: new Date().toISOString(),
+    updateTime: new Date().toISOString()
   }
 })

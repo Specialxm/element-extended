@@ -2,7 +2,7 @@ import { dirname } from 'node:path'
 
 import {
   getPackages as getPackagesFunc,
-  getPackagesSync as getPackagesSyncFunc,
+  getPackagesSync as getPackagesSyncFunc
   // @ts-ignore
 } from '@manypkg/get-packages'
 import { findUpSync } from 'find-up'
@@ -11,10 +11,11 @@ import { findUpSync } from 'find-up'
  * 查找大仓的根目录
  * @param cwd
  */
+
 function findMonorepoRoot(cwd: string = process.cwd()) {
   const lockFile = findUpSync('pnpm-lock.yaml', {
     cwd,
-    type: 'file',
+    type: 'file'
   })
   return dirname(lockFile || '')
 }
@@ -40,7 +41,9 @@ async function getPackages() {
  */
 async function getPackage(pkgName: string) {
   const { packages } = await getPackages()
-  return packages.find((pkg) => pkg.packageJson.name === pkgName)
+  return packages.find(
+    (pkg: { packageJson: { name: string } }) => pkg.packageJson.name === pkgName
+  )
 }
 
 export { findMonorepoRoot, getPackage, getPackages, getPackagesSync }

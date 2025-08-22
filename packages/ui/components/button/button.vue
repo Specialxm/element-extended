@@ -1,17 +1,28 @@
-<template>
-  <button :class="bemClass" :disabled="disabled" @click="$emit('click', $event)">
-    <slot></slot>
-  </button>
-</template>
-
 <script lang="ts" setup>
 import { computed } from 'vue'
 
 defineOptions({
-  name: 'NovaButton',
+  name: 'NovaButton'
 })
 
-type ButtonType = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'
+const props = withDefaults(defineProps<Props>(), {
+  type: 'primary',
+  size: 'medium',
+  disabled: false,
+  nativeType: 'button'
+})
+
+const emit = defineEmits<{
+  click: [event: MouseEvent]
+}>()
+
+type ButtonType =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'info'
 type ButtonSize = 'small' | 'medium' | 'large'
 
 interface Props {
@@ -25,13 +36,6 @@ interface Props {
   nativeType?: 'button' | 'submit' | 'reset'
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  type: 'primary',
-  size: 'medium',
-  disabled: false,
-  nativeType: 'button',
-})
-
 // BEM命名规范实现
 const bemClass = computed(() => {
   return [
@@ -39,11 +43,17 @@ const bemClass = computed(() => {
     `nova-button--${props.type}`,
     `nova-button--${props.size}`,
     {
-      'nova-button--disabled': props.disabled,
-    },
+      'nova-button--disabled': props.disabled
+    }
   ]
 })
 </script>
+
+<template>
+  <button :class="bemClass" :disabled="disabled" @click="emit('click', $event)">
+    <slot></slot>
+  </button>
+</template>
 
 <style scoped>
 /* 基础样式变量定义 */

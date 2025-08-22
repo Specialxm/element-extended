@@ -1,0 +1,10 @@
+dist
+public
+__tests__
+**/iconfont/**
+presets
+.husky
+.vscode
+.idea
+*.sh
+*.md

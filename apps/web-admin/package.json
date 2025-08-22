@@ -16,11 +16,23 @@
     "serve": "vite preview --port 4173"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
+    "@nova/core": "workspace:*",
+    "@nova/mock": "workspace:*",
     "@nova/shared": "workspace:*",
+    "@nova/shared-utils": "workspace:*",
     "@nova/ui": "workspace:*",
     "axios": "catalog:",
-    "pinia": "^2.1.0",
-    "vue-router": "^4.2.0"
+    "element-plus": "^2.11.0",
+    "pinia": "^3.0.3",
+    "vue": "^3.5.19",
+    "vue-router": "^4.5.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vitejs/plugin-vue-jsx": "catalog:",
+    "sass": "^1.90.0",
+    "vite-plugin-vue-devtools": "catalog:"
+  }
 }

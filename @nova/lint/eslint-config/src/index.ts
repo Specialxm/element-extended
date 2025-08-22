@@ -6,6 +6,9 @@ import {
   javascript,
   typescript,
   prettier,
+  jsonc,
+  node,
+  regexp,
   ignores
 } from './configs'
 
@@ -25,6 +28,9 @@ async function defineConfig(config: FlatConfig[] = []) {
     ignores(),
     typescript(),
     prettier(),
+    jsonc(),
+    node(),
+    regexp(),
     ...config
   ]
 

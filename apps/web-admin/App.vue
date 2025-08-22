@@ -9,12 +9,13 @@
 </template>
 
 <style>
+@import './src/styles/variables.scss';
+
 #app {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--el-font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
 }
 
 * {
@@ -24,9 +25,10 @@
 body {
   margin: 0;
   padding: 0;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #333;
+  font-size: var(--el-font-size-base);
+  line-height: var(--el-font-line-height-primary);
+  color: var(--el-text-color-primary);
+  background-color: var(--el-bg-color-page);
 }
 
 button {
@@ -35,5 +37,24 @@ button {
 
 input {
   font-family: inherit;
+}
+
+/* 全局滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--el-fill-color-lighter);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--el-border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--el-border-color-dark);
 }
 </style>

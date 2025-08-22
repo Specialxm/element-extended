@@ -1,18 +1,18 @@
 {
   "name": "@nova/ui",
   "version": "1.0.0",
-  "main": "./index.ts",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "./index.ts",
   "exports": {
     ".": {
+      "types": "./src/index.d.ts",
       "import": "./index.ts",
       "require": "./index.ts",
-      "types": "./src/index.d.ts",
       "default": "./src/index.ts"
     }
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }

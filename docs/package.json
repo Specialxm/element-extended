@@ -1,15 +1,15 @@
 {
   "name": "@nova/docs",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "scripts": {
     "dev": "vuepress dev .",
     "build": "vuepress build ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "main": "index.js",
   "dependencies": {
     "vitepress": "^1.6.4"
   },

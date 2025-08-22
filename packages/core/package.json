@@ -1,21 +1,35 @@
 {
   "name": "@nova/core",
   "version": "1.0.0",
-  "description": "Vue3工具库",
+  "license": "MIT",
   "type": "module",
-  "main": "./index.ts",
   "scripts": {
-    "build": "vite build"
+    "build": "pnpm unbuild",
+    "clean": "rimraf dist"
   },
-  "sideEffects": [
-    "**/*.css"
+  "files": [
+    "dist"
   ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./index.ts",
-      "require": "./index.ts",
-      "types": "./index.d.ts",
-      "default": "./index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
+  },
+  "dependencies": {
+    "@nova/shared-utils": "workspace:*",
+    "axios": "catalog:",
+    "pinia": "^2.1.0",
+    "vue": "^3.3.0",
+    "vue-router": "^4.2.0"
+  },
+  "devDependencies": {
+    "dompurify": "^3.2.6",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.0.0"
   }
 }

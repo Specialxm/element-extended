@@ -11,8 +11,6 @@ export async function typescript(): Promise<Linter.Config[]> {
     interopDefault(import('@typescript-eslint/parser'))
   ] as const)
 
-  console.log(pluginTs, parserTs)
-
   return [
     {
       files: ['**/*.?([cm])[jt]s?(x)'],
@@ -41,7 +39,7 @@ export async function typescript(): Promise<Linter.Config[]> {
           {
             'ts-check': false,
             'ts-expect-error': 'allow-with-description',
-            'ts-ignore': 'allow-with-description',
+            'ts-ignore': false,
             'ts-nocheck': 'allow-with-description'
           }
         ],

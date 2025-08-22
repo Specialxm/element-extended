@@ -1,18 +1,45 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 import App from './App.vue'
 import router from './router'
-import { useUserStore } from './stores/user'
+import { novaApp } from '@nova/core'
 
+// 创建应用实例
 const app = createApp(App)
-const pinia = createPinia()
 
-app.use(pinia)
+// 注册 Element Plus 图标
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
+
+// 使用插件
+app.use(createPinia())
 app.use(router)
+app.use(ElementPlus, {
+  locale: zhCn
+})
 
-// 初始化用户状态
-const userStore = useUserStore()
-userStore.initAuth()
+// 设置 Nova App
+novaApp.setApp(app)
+novaApp.setOptions({
+  router,
+  config: {
+    title: 'Nova Admin',
+    version: '1.0.0'
+  }
+})
 
-app.mount('#app')
+// 初始化 Nova App
+novaApp
+  .initialize()
+  .then(() => {
+    app.mount('#app')
+  })
+  .catch((error) => {
+    console.error('Failed to initialize Nova App:', error)
+  })

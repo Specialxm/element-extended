@@ -6,9 +6,6 @@
   "workspaces": [
     "apps/*"
   ],
-  "engines": {
-    "node": "^20.19.0 || >=22.12.0"
-  },
   "scripts": {
     "build": "run-p type-check \"build-only {@}\" \"build:admin {@}\" --",
     "build:admin": "pnpm run -C apps/web-admin build",
@@ -22,15 +19,19 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "test:unit": "vitest run --dom",
-    "catalog": "pnpx codemod pnpm/catalog"
+    "catalog": "pnpx codemod pnpm/catalog",
+    "commit": "czg",
+    "commitlint": "commitlint --edit"
   },
   "devDependencies": {
-    "@nova/mock": "workspace:*",
-    "@nova/shared": "workspace:*",
-    "@nova/tsconfig": "workspace:*",
+    "@nova/commitlint-config": "workspace:*",
     "@nova/eslint-config": "workspace:*",
+    "@nova/mock": "workspace:*",
     "@nova/prettier-config": "workspace:*",
-    "@nova/utils": "workspace:*",
+    "@nova/shared": "workspace:*",
+    "@nova/shared-utils": "workspace:*",
+    "@nova/stylelint-config": "workspace:*",
+    "@nova/tsconfig": "workspace:*",
     "@nova/ui": "workspace:*",
     "@nova/vite-run": "workspace:*",
     "@tsconfig/node22": "catalog:",
@@ -44,12 +45,47 @@
     "pinia": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:",
-    "vue": "catalog:",
     "unbuild": "catalog:",
     "vite": "catalog:",
-    "vue-router": "catalog:",
     "vite-plugin-vue-devtools": "catalog:",
     "vitest": "catalog:",
+    "vue": "catalog:",
+    "vue-router": "catalog:",
     "vue-tsc": "catalog:"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier --write --ignore-unknown",
+      "git add"
+    ],
+    "*.{js,ts,jsx,tsx,vue}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.vue": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{css,scss,sass,less}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,jsonc}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.md": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{yml,yaml}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

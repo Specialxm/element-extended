@@ -1,7 +1,11 @@
 {
   "name": "@nova/utils",
   "version": "1.0.0",
+  "description": "",
   "private": true,
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "scripts": {
     "stub": "pnpm unbuild --stub"
   },
@@ -15,10 +19,6 @@
       "default": "./dist/index.mjs"
     }
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@manypkg/get-packages": "^3.1.0",
     "find-up": "^7.0.0"

@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 // import { useUserStore } from '../stores/user'
 
 const Navigation = defineAsyncComponent(
-  () => import('../components/Navigation.vue')
+  () => import('../../components/Navigation.vue')
 )
 
 const router = useRouter()

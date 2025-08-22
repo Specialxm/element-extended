@@ -1,0 +1,60 @@
+{
+  "name": "@nova/commitlint-config",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "postinstall": "pnpm unbuild --stub",
+    "commit": "git-cz",
+    "commit:lint": "lint-staged"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git",
+      "useEmoji": true
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "dependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@manypkg/get-packages": "^3.1.0",
+    "commitizen": "^4.3.1",
+    "commitlint-plugin-function-rules": "^4.0.2",
+    "cz-git": "^1.12.0",
+    "czg": "^1.12.0",
+    "find-up": "^7.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^12.3.2"
+  },
+  "lint-staged": {
+    "**/*.?([cm])[jt]s?(x)": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ],
+    "*.{vue,html}": [
+      "eslint --fix",
+      "prettier --write",
+      "stylelint --fix --allow-empty-input"
+    ],
+    "*.{scss,css}": [
+      "stylelint --fix --allow-empty-input",
+      "prettier --write"
+    ]
+  }
+}

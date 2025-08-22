@@ -140,7 +140,7 @@ export const removeUrlParam = (name: string): void => {
  * @returns 是否有效
  */
 export const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const emailRegex = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
   return emailRegex.test(email)
 }
 
@@ -165,8 +165,8 @@ export const getPasswordStrength = (password: string): number => {
   if (password.length >= 8) strength++
   if (/[a-z]/.test(password)) strength++
   if (/[A-Z]/.test(password)) strength++
-  if (/[0-9]/.test(password)) strength++
-  if (/[^A-Za-z0-9]/.test(password)) strength++
+  if (/\d/.test(password)) strength++
+  if (/[^A-Z0-9]/i.test(password)) strength++
 
   return strength
 }

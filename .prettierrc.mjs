@@ -1,1 +1,1 @@
-export { default } from '@nova/prettier-config';
+export { default } from '@nova/prettier-config'

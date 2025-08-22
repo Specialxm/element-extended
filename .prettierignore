@@ -1,0 +1,5 @@
+# Ignore artifacts:
+public/*
+**/public/*
+**/dist/*
+pnpm-lock.yaml

@@ -4,6 +4,8 @@ export interface UserInfo {
   username: string
   email?: string
   avatar?: string
+  role?: string
+  permissions?: string[]
 }
 
 export interface LoginForm {
@@ -62,39 +64,4 @@ export const isLoggedIn = (): boolean => {
 export const clearAuth = (): void => {
   removeToken()
   removeUserInfo()
-}
-
-// 模拟登录接口
-export const login = async (
-  loginForm: LoginForm
-): Promise<{ token: string; userInfo: UserInfo }> => {
-  // 这里应该调用真实的登录 API
-  // 现在使用模拟数据
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const mockUserInfo: UserInfo = {
-        id: '1',
-        username: loginForm.username,
-        email: `${loginForm.username}@example.com`,
-        avatar: 'https://via.placeholder.com/40'
-      }
-      const mockToken = `mock_token_${Date.now()}`
-
-      resolve({
-        token: mockToken,
-        userInfo: mockUserInfo
-      })
-    }, 1000)
-  })
-}
-
-// 模拟登出接口
-export const logout = async (): Promise<void> => {
-  // 这里应该调用真实的登出 API
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      clearAuth()
-      resolve()
-    }, 500)
-  })
 }

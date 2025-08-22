@@ -1,15 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { authAPI } from '../utils/api'
 import {
-  login as authLogin,
-  logout as authLogout,
-  getUserInfo,
   setUserInfo as setUserInfoStorage,
   setToken as setTokenStorage,
-  clearAuth,
-  type UserInfo,
-  type LoginForm
+  clearAuth
 } from '../utils/auth'
+import type { UserInfo, LoginForm } from '../utils/auth'
 
 export const useUserStore = defineStore('user', () => {
   // 状态
@@ -25,11 +22,15 @@ export const useUserStore = defineStore('user', () => {
   const initAuth = () => {
     // 从本地存储恢复状态
     const storedToken = localStorage.getItem('nova_admin_token')
-    const storedUserInfo = getUserInfo()
+    const storedUserInfo = localStorage.getItem('nova_admin_user_info')
 
     if (storedToken && storedUserInfo) {
-      token.value = storedToken
-      userInfo.value = storedUserInfo
+      try {
+        token.value = storedToken
+        userInfo.value = JSON.parse(storedUserInfo)
+      } catch {
+        clearAuth()
+      }
     }
   }
 
@@ -37,23 +38,32 @@ export const useUserStore = defineStore('user', () => {
   const login = async (loginForm: LoginForm) => {
     try {
       loading.value = true
-      const { token: newToken, userInfo: newUserInfo } =
-        await authLogin(loginForm)
+      const response = await authAPI.login(loginForm)
 
-      // 保存到 store
-      token.value = newToken
-      userInfo.value = newUserInfo
+      if (response.data.success) {
+        const { token: newToken, userInfo: newUserInfo } = response.data.data
 
-      // 保存到本地存储
-      setTokenStorage(newToken)
-      setUserInfoStorage(newUserInfo)
+        // 保存到 store
+        token.value = newToken
+        userInfo.value = newUserInfo
 
-      return { success: true }
-    } catch (error) {
+        // 保存到本地存储
+        setTokenStorage(newToken)
+        setUserInfoStorage(newUserInfo)
+
+        return { success: true }
+      } else {
+        return {
+          success: false,
+          error: '登录失败'
+        }
+      }
+    } catch (error: any) {
       console.error('Login failed:', error)
       return {
         success: false,
-        error: error instanceof Error ? error.message : '登录失败'
+        error:
+          error.response?.data?.statusMessage || error.message || '登录失败'
       }
     } finally {
       loading.value = false
@@ -64,7 +74,7 @@ export const useUserStore = defineStore('user', () => {
   const logout = async () => {
     try {
       loading.value = true
-      await authLogout()
+      await authAPI.logout()
 
       // 清除 store 状态
       token.value = null
@@ -74,7 +84,7 @@ export const useUserStore = defineStore('user', () => {
       clearAuth()
 
       return { success: true }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Logout failed:', error)
       // 即使登出失败，也要清除本地状态
       token.value = null
@@ -82,10 +92,27 @@ export const useUserStore = defineStore('user', () => {
       clearAuth()
       return {
         success: false,
-        error: error instanceof Error ? error.message : '登出失败'
+        error:
+          error.response?.data?.statusMessage || error.message || '登出失败'
       }
     } finally {
       loading.value = false
+    }
+  }
+
+  // 获取用户信息
+  const fetchUserInfo = async () => {
+    try {
+      const response = await authAPI.getUserInfo()
+      if (response.data.success) {
+        userInfo.value = response.data.data
+        setUserInfoStorage(response.data.data)
+        return { success: true }
+      }
+      return { success: false }
+    } catch (error: any) {
+      console.error('Fetch user info failed:', error)
+      return { success: false, error: error.message }
     }
   }
 
@@ -111,6 +138,7 @@ export const useUserStore = defineStore('user', () => {
     initAuth,
     login,
     logout,
+    fetchUserInfo,
     updateUserInfo
   }
 })

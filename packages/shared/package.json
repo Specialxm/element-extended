@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "description": "Vue3工具库",
   "type": "module",
-  "main": "./index.ts",
   "scripts": {
     "build": "vite build"
   },
   "sideEffects": [
     "**/*.css"
   ],
+  "main": "./index.ts",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.ts",
       "require": "./index.ts",
-      "types": "./index.d.ts",
       "default": "./index.ts"
     }
   }

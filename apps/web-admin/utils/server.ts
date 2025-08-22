@@ -7,7 +7,7 @@ console.log('import.meta.env.PROD', import.meta.env)
 //创建一个axios实例
 const server = axios.create({
   baseURL: import.meta.env.VITE_GLOB_API_URL,
-  timeout: 20000,
+  timeout: 20000
 })
 
 // 添加请求拦截器
@@ -29,7 +29,7 @@ server.interceptors.request.use(
   function (error) {
     // 对请求错误做些什么
     return Promise.reject(error)
-  },
+  }
 )
 
 // 添加响应拦截器
@@ -91,7 +91,7 @@ server.interceptors.response.use(
       error.message = '连接到服务器失败'
     }
     return Promise.reject(error)
-  },
+  }
 )
 
 /*
@@ -104,7 +104,7 @@ export function get(url: string, params = {}) {
     server({
       url: url,
       method: 'get',
-      params: params,
+      params: params
     })
       .then((response) => {
         resolve(response)
@@ -125,7 +125,7 @@ export function post(url: string, params = {}) {
     server({
       url: url,
       method: 'post',
-      data: params,
+      data: params
     })
       .then((response) => {
         resolve(response)

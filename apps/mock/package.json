@@ -1,19 +1,20 @@
 {
   "name": "@nova/mock",
   "version": "0.0.1",
+  "description": "",
   "private": true,
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "scripts": {
     "build": "rimraf .output && nitro build",
     "start": "nitro dev",
     "prepare": "nitro prepare",
     "preview": "node .output/server/index.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "nitropack": "latest"
+    "nitropack": "latest",
+    "h3": "^1.15.4"
   },
   "devDependencies": {
     "rimraf": "^5.0.5"
