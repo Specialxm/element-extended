@@ -18,19 +18,19 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     }
   },
   "dependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@manypkg/get-packages": "^3.1.0",
     "commitizen": "^4.3.1",
     "commitlint-plugin-function-rules": "^4.0.2",
     "cz-git": "^1.12.0",

@@ -24,6 +24,7 @@
     "commitlint": "commitlint --edit"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^19.8.1",
     "@nova/commitlint-config": "workspace:*",
     "@nova/eslint-config": "workspace:*",
     "@nova/mock": "workspace:*",
