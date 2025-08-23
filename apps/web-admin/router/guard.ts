@@ -18,6 +18,12 @@ export const requiresAuth = (route: RouteLocationNormalized): boolean => {
 // 路由守卫
 export const setupRouteGuard = (router: Router): void => {
   router.beforeEach(async (to, from, next) => {
+    // 如果用户已登录但访问登录页面，重定向到首页
+    if (to.path === '/login' && isLoggedIn()) {
+      next({ path: '/' })
+      return
+    }
+
     // 检查路由是否需要鉴权
     if (requiresAuth(to)) {
       // 需要鉴权，检查用户是否已登录
@@ -33,16 +39,6 @@ export const setupRouteGuard = (router: Router): void => {
       }
     } else {
       // 不需要鉴权，直接允许访问
-      next()
-    }
-  })
-
-  // 登录后访问登录页面的处理
-  router.beforeEach((to, from, next) => {
-    if (to.path === '/login' && isLoggedIn()) {
-      // 用户已登录但访问登录页面，跳转到首页
-      next({ path: '/' })
-    } else {
       next()
     }
   })

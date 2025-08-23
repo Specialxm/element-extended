@@ -5,12 +5,16 @@ import { menuManager } from '../menu'
 import { routerManager } from '../router'
 import { securityManager } from '../security'
 import { pluginManager } from '../plugin'
+import { serverManager } from '../plugin/server'
 
 export class NovaApp {
   private app: VueApp | null = null
   private options: AppOptions = {}
   private lifecycleHooks: LifecycleHooks = {}
   private isInitialized = false
+
+  // 公共属性
+  public server = serverManager
 
   // 设置应用实例
   setApp(app: VueApp): void {
@@ -137,6 +141,10 @@ export class NovaApp {
 
   getPluginManager() {
     return pluginManager
+  }
+
+  getServerManager() {
+    return this.server
   }
 
   // 检查是否已初始化

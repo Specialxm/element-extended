@@ -1,4 +1,5 @@
 import type { Plugin } from '../types'
+import { serverPlugin } from './server'
 
 export class PluginManager {
   private plugins: Plugin[] = []
@@ -73,3 +74,6 @@ export class PluginManager {
 
 // 导出单例实例
 export const pluginManager = new PluginManager()
+
+// 导出内置插件
+export { serverPlugin }

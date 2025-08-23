@@ -46,6 +46,9 @@ export const useUserStore = defineStore('user', () => {
         tokenStorage.value = newToken
         userInfoStorage.value = newUserInfo
 
+        // 确保状态同步
+        await ensureStateSync()
+
         return { success: true }
       } else {
         return {
@@ -62,6 +65,26 @@ export const useUserStore = defineStore('user', () => {
       }
     } finally {
       loading.value = false
+    }
+  }
+
+  // 确保状态同步
+  const ensureStateSync = async () => {
+    // 等待状态更新
+    await new Promise((resolve) => setTimeout(resolve, 50))
+
+    // 验证状态是否正确设置
+    if (token.value && userInfo.value) {
+      console.log('状态同步完成:', {
+        token: !!token.value,
+        userInfo: !!userInfo.value,
+        isLoggedIn: isLoggedIn.value
+      })
+    } else {
+      console.warn('状态同步失败，尝试重新设置')
+      // 重新从存储恢复状态
+      token.value = tokenStorage.value
+      userInfo.value = userInfoStorage.value
     }
   }
 
@@ -134,6 +157,7 @@ export const useUserStore = defineStore('user', () => {
     login,
     logout,
     fetchUserInfo,
-    updateUserInfo
+    updateUserInfo,
+    ensureStateSync
   }
 })

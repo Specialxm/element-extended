@@ -52,7 +52,14 @@ export interface AppOptions {
   plugins?: Plugin[]
   router?: any
   store?: any
-  config?: Record<string, any>
+  config?: {
+    api?: {
+      baseURL?: string
+      timeout?: number
+      withCredentials?: boolean
+    }
+    [key: string]: any
+  }
 }
 
 export interface LifecycleHooks {

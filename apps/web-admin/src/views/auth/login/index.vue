@@ -50,9 +50,29 @@ const handleLogin = async () => {
     if (result.success) {
       ElMessage.success('登录成功')
 
+      // 确保状态同步完成
+      await userStore.ensureStateSync()
+
       // 跳转到目标页面或首页
       const redirect = route.query.redirect as string
-      router.push(redirect || '/')
+      console.log('登录成功，准备跳转:', {
+        redirect,
+        isLoggedIn: userStore.isLoggedIn,
+        token: !!userStore.token,
+        userInfo: !!userStore.userInfo
+      })
+
+      // 验证重定向路径的有效性
+      if (redirect && redirect !== '/login' && redirect !== '/') {
+        try {
+          await router.push(redirect)
+        } catch (error) {
+          console.warn('重定向失败，跳转到首页:', error)
+          router.push('/')
+        }
+      } else {
+        router.push('/')
+      }
     } else {
       ElMessage.error(result.error || '登录失败')
     }
@@ -125,7 +145,7 @@ const handleLogin = async () => {
         </el-form>
 
         <div :class="ns.e('footer')">
-          <p>默认账号：admin / admin</p>
+          <p>默认账号：admin / admin123456</p>
         </div>
       </div>
     </div>

@@ -56,7 +56,18 @@ export const removeUserInfo = (): void => {
 
 // 检查用户是否已登录
 export const isLoggedIn = (): boolean => {
-  return !!getToken() && !!getUserInfo()
+  const token = getToken()
+  const userInfo = getUserInfo()
+  const isLoggedIn = !!(token && userInfo)
+
+  // 添加调试信息
+  console.log('isLoggedIn check:', {
+    token: !!token,
+    userInfo: !!userInfo,
+    result: isLoggedIn
+  })
+
+  return isLoggedIn
 }
 
 // 清除所有认证信息

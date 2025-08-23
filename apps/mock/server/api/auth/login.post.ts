@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   const { username, password } = body
 
   // 模拟验证逻辑
-  if (username === 'admin' && password === 'admin') {
+  if (username === 'admin' && password === 'admin123456') {
     const mockUserInfo = {
       id: '1',
       username: username,

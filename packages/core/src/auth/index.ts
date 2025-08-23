@@ -1,9 +1,11 @@
 import { ref, computed } from 'vue'
+import { useStorage } from '@vueuse/core'
 import type { UserInfo, LoginForm, AuthResponse } from '../types'
+import { novaApp } from '../app'
 
 export class AuthManager {
-  private token = ref<string | null>(null)
-  private userInfo = ref<UserInfo | null>(null)
+  private token = useStorage<string | null>('nova_admin_token', null)
+  private userInfo = useStorage<UserInfo | null>('nova_admin_user_info', null)
   private loading = ref(false)
 
   // 计算属性
@@ -26,15 +28,13 @@ export class AuthManager {
   // 初始化认证状态
   async initAuth(): Promise<void> {
     try {
-      const storedToken = localStorage.getItem('nova_admin_token')
-      const storedUserInfo = this.getUserInfoFromStorage()
-
-      if (storedToken && storedUserInfo) {
-        this.token.value = storedToken
-        this.userInfo.value = storedUserInfo
-
+      if (this.token.value && this.userInfo.value) {
         // 验证 token 有效性
-        await this.validateToken(storedToken)
+        const isValid = await this.validateToken(this.token.value)
+        if (!isValid) {
+          console.warn('Stored token is invalid, clearing auth')
+          this.clearAuth()
+        }
       }
     } catch (error) {
       console.error('Failed to initialize auth:', error)
@@ -49,15 +49,14 @@ export class AuthManager {
     try {
       this.loading.value = true
 
-      // 这里应该调用实际的登录 API
+      // 使用 @app/ 下的 server 进行登录
       const response = await this.loginAPI(loginForm)
 
       this.token.value = response.token
       this.userInfo.value = response.userInfo
 
-      // 保存到本地存储
-      this.saveTokenToStorage(response.token)
-      this.saveUserInfoToStorage(response.userInfo)
+      // 设置 server 的认证 token
+      novaApp.getServerManager().setAuthToken(response.token)
 
       return { success: true }
     } catch (error) {
@@ -98,75 +97,159 @@ export class AuthManager {
   updateUserInfo(newUserInfo: Partial<UserInfo>): void {
     if (this.userInfo.value) {
       this.userInfo.value = { ...this.userInfo.value, ...newUserInfo }
-      this.saveUserInfoToStorage(this.userInfo.value)
+    }
+  }
+
+  // 刷新用户信息
+  async refreshUserInfo(): Promise<boolean> {
+    try {
+      if (!this.token.value) {
+        return false
+      }
+
+      const response = await novaApp.getServerManager().get('/auth/user')
+
+      if (response.success) {
+        this.userInfo.value = response.data
+        return true
+      }
+
+      return false
+    } catch (error) {
+      console.error('Refresh user info error:', error)
+      return false
     }
   }
 
   // 检查权限
   hasPermission(permission: string): boolean {
-    return this.userInfo.value?.permissions.includes(permission) ?? false
+    if (!this.userInfo.value?.permissions) {
+      return false
+    }
+
+    // 支持通配符权限
+    if (this.userInfo.value.permissions.includes('*')) {
+      return true
+    }
+
+    return this.userInfo.value.permissions.includes(permission)
   }
 
   // 检查角色
   hasRole(role: string): boolean {
-    return this.userInfo.value?.roles.includes(role) ?? false
+    if (!this.userInfo.value?.roles) {
+      return false
+    }
+
+    return this.userInfo.value.roles.includes(role)
+  }
+
+  // 检查是否有任意一个权限
+  hasAnyPermission(permissions: string[]): boolean {
+    if (!this.userInfo.value?.permissions) {
+      return false
+    }
+
+    if (this.userInfo.value.permissions.includes('*')) {
+      return true
+    }
+
+    return permissions.some((permission) =>
+      this.userInfo.value!.permissions.includes(permission)
+    )
+  }
+
+  // 检查是否有所有权限
+  hasAllPermissions(permissions: string[]): boolean {
+    if (!this.userInfo.value?.permissions) {
+      return false
+    }
+
+    if (this.userInfo.value.permissions.includes('*')) {
+      return true
+    }
+
+    return permissions.every((permission) =>
+      this.userInfo.value!.permissions.includes(permission)
+    )
+  }
+
+  // 检查网络连接状态
+  async checkNetworkStatus(): Promise<boolean> {
+    try {
+      const response = await novaApp.getServerManager().get('/hello')
+      return response.success
+    } catch (error) {
+      console.warn('Network check failed:', error)
+      return false
+    }
+  }
+
+  // 获取认证状态摘要
+  getAuthSummary() {
+    return {
+      isLoggedIn: this.isLoggedIn.value,
+      currentUser: this.currentUser.value,
+      hasToken: !!this.currentToken.value,
+      isLoading: this.isLoading.value
+    }
   }
 
   // 私有方法
   private async loginAPI(loginForm: LoginForm): Promise<AuthResponse> {
-    // 模拟 API 调用
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (
-          loginForm.username === 'admin' &&
-          loginForm.password === 'admin123456'
-        ) {
-          resolve({
-            token: 'mock_token_' + Date.now(),
-            userInfo: {
-              id: '1',
-              username: 'admin',
-              email: 'admin@example.com',
-              roles: ['admin'],
-              permissions: ['*']
-            }
-          })
-        } else {
-          reject(new Error('用户名或密码错误'))
+    try {
+      // 使用 @app/ 下的 server 进行登录
+      const response = await novaApp
+        .getServerManager()
+        .post('/auth/login', loginForm)
+
+      if (response.success) {
+        return {
+          token: response.data.token,
+          userInfo: response.data.userInfo
         }
-      }, 1000)
-    })
+      } else {
+        throw new Error(response.message || '登录失败')
+      }
+    } catch (error) {
+      console.error('Login API error:', error)
+      throw error
+    }
   }
 
   private async logoutAPI(): Promise<void> {
-    // 模拟 API 调用
-    return new Promise((resolve) => setTimeout(resolve, 500))
+    try {
+      // 使用 @app/ 下的 server 进行登出
+      await novaApp.getServerManager().post('/auth/logout')
+    } catch (error) {
+      console.error('Logout API error:', error)
+      // 登出失败不影响本地状态清除
+    }
   }
 
   private async validateToken(token: string): Promise<boolean> {
-    // 这里应该调用实际的 token 验证 API
-    console.log(token)
-    return true
-  }
+    try {
+      // 使用 @app/ 下的 server 验证 token
+      const response = await novaApp.getServerManager().get('/auth/user')
 
-  private saveTokenToStorage(token: string): void {
-    localStorage.setItem('nova_admin_token', token)
-  }
+      if (response.success) {
+        // 更新用户信息
+        this.userInfo.value = response.data
+        return true
+      }
 
-  private saveUserInfoToStorage(userInfo: UserInfo): void {
-    localStorage.setItem('nova_admin_user_info', JSON.stringify(userInfo))
-  }
-
-  private getUserInfoFromStorage(): UserInfo | null {
-    const stored = localStorage.getItem('nova_admin_user_info')
-    return stored ? JSON.parse(stored) : null
+      return false
+    } catch (error) {
+      console.error('Token validation error:', error)
+      return false
+    }
   }
 
   private clearAuth(): void {
     this.token.value = null
     this.userInfo.value = null
-    localStorage.removeItem('nova_admin_token')
-    localStorage.removeItem('nova_admin_user_info')
+    // 清除 server 的认证 token
+    novaApp.getServerManager().clearAuthToken()
   }
 }
 
