@@ -4,7 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { User, Lock } from '@element-plus/icons-vue'
 import { useNamespace } from '@nova/shared-utils'
-import { novaApp } from '@nova/core'
+import { useUserStore } from '../../../../stores/user'
 import type { FormInstance, FormRules } from 'element-plus'
 
 // 使用 BEM 命名空间
@@ -15,7 +15,7 @@ const loginFormRef = ref<FormInstance>()
 const loading = ref(false)
 const loginForm = reactive({
   username: 'admin',
-  password: 'admin',
+  password: 'admin123456',
   remember: false
 })
 
@@ -43,8 +43,9 @@ const handleLogin = async () => {
     await loginFormRef.value.validate()
     loading.value = true
 
-    const authManager = novaApp.getAuthManager()
-    const result = await authManager.login(loginForm)
+    // 使用 user store 进行登录
+    const userStore = useUserStore()
+    const result = await userStore.login(loginForm)
 
     if (result.success) {
       ElMessage.success('登录成功')
@@ -132,7 +133,7 @@ const handleLogin = async () => {
 </template>
 
 <style lang="scss" scoped>
-@import '../src/styles/variables.scss';
+@import '../../../styles/variables.scss';
 
 .nova-login {
   min-height: 100vh;

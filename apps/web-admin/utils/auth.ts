@@ -1,4 +1,6 @@
 // 鉴权相关工具函数
+import { useStorage } from '@vueuse/core'
+
 export interface UserInfo {
   id: string
   username: string
@@ -17,42 +19,39 @@ export interface LoginForm {
 const TOKEN_KEY = 'nova_admin_token'
 const USER_INFO_KEY = 'nova_admin_user_info'
 
+// 使用 @vueuse 的 useStorage 进行响应式存储
+export const useTokenStorage = () => useStorage<string | null>(TOKEN_KEY, null)
+export const useUserInfoStorage = () =>
+  useStorage<UserInfo | null>(USER_INFO_KEY, null)
+
 // 获取 token
 export const getToken = (): string | null => {
-  return localStorage.getItem(TOKEN_KEY)
+  return useTokenStorage().value
 }
 
 // 设置 token
 export const setToken = (token: string): void => {
-  localStorage.setItem(TOKEN_KEY, token)
+  useTokenStorage().value = token
 }
 
 // 移除 token
 export const removeToken = (): void => {
-  localStorage.removeItem(TOKEN_KEY)
+  useTokenStorage().value = null
 }
 
 // 获取用户信息
 export const getUserInfo = (): UserInfo | null => {
-  const userInfoStr = localStorage.getItem(USER_INFO_KEY)
-  if (userInfoStr) {
-    try {
-      return JSON.parse(userInfoStr)
-    } catch {
-      return null
-    }
-  }
-  return null
+  return useUserInfoStorage().value
 }
 
 // 设置用户信息
 export const setUserInfo = (userInfo: UserInfo): void => {
-  localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo))
+  useUserInfoStorage().value = userInfo
 }
 
 // 移除用户信息
 export const removeUserInfo = (): void => {
-  localStorage.removeItem(USER_INFO_KEY)
+  useUserInfoStorage().value = null
 }
 
 // 检查用户是否已登录

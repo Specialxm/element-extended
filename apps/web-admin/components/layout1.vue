@@ -112,7 +112,7 @@ onMounted(async () => {
 <template>
   <div :class="ns.b()">
     <!-- 侧边栏 -->
-    <aside :class="[ns.e('sidebar'), { [ns.is('collapsed')]: isCollapsed }]">
+    <aside :class="[ns.e('sidebar'), ns.is('collapsed', isCollapsed)]">
       <div :class="ns.e('logo')">
         <img src="../../public/favicon.ico" alt="Logo" />
         <span v-show="!isCollapsed">Nova Admin</span>
@@ -133,7 +133,7 @@ onMounted(async () => {
           <el-sub-menu
             v-if="menu.children && menu.children.length > 0"
             :index="menu.id"
-            :key="menu.id"
+            :key="`sub-menu-${menu.id}`"
           >
             <template #title>
               <el-icon v-if="menu.icon">
@@ -157,7 +157,7 @@ onMounted(async () => {
           <el-menu-item
             v-else
             :index="menu.id"
-            :key="menu.id"
+            :key="`item-${menu.id}`"
             @click="handleMenuClick(menu)"
           >
             <el-icon v-if="menu.icon">

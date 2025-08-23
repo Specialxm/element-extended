@@ -10,7 +10,21 @@ export default defineEventHandler(async (event) => {
       id: '1',
       username: username,
       email: `${username}@example.com`,
-      avatar: 'https://via.placeholder.com/40'
+      avatar: 'https://via.placeholder.com/40',
+      role: 'admin',
+      permissions: [
+        'dashboard',
+        'system',
+        'users',
+        'roles',
+        'menus',
+        'content',
+        'articles',
+        'categories',
+        'monitor',
+        'online_users',
+        'operation_logs'
+      ]
     }
     const mockToken = `mock_token_${Date.now()}`
 

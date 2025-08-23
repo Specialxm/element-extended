@@ -10,10 +10,11 @@ export default defineConfig({
   plugins: [vue(), vueJsx(), vueDevTools()],
   server: {
     proxy: {
-      // 使用 proxy 实例
+      // 代理到mock服务
       '/api': {
-        target: 'http://localhost:3000/',
-        changeOrigin: true
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api')
       }
     }
   },

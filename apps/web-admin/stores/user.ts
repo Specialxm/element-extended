@@ -4,14 +4,20 @@ import { authAPI } from '../utils/api'
 import {
   setUserInfo as setUserInfoStorage,
   setToken as setTokenStorage,
-  clearAuth
+  clearAuth,
+  useTokenStorage,
+  useUserInfoStorage
 } from '../utils/auth'
 import type { UserInfo, LoginForm } from '../utils/auth'
 
 export const useUserStore = defineStore('user', () => {
+  // 使用 @vueuse 的响应式存储
+  const tokenStorage = useTokenStorage()
+  const userInfoStorage = useUserInfoStorage()
+
   // 状态
-  const token = ref<string | null>(null)
-  const userInfo = ref<UserInfo | null>(null)
+  const token = ref<string | null>(tokenStorage.value)
+  const userInfo = ref<UserInfo | null>(userInfoStorage.value)
   const loading = ref(false)
 
   // 计算属性
@@ -20,18 +26,9 @@ export const useUserStore = defineStore('user', () => {
 
   // 初始化状态
   const initAuth = () => {
-    // 从本地存储恢复状态
-    const storedToken = localStorage.getItem('nova_admin_token')
-    const storedUserInfo = localStorage.getItem('nova_admin_user_info')
-
-    if (storedToken && storedUserInfo) {
-      try {
-        token.value = storedToken
-        userInfo.value = JSON.parse(storedUserInfo)
-      } catch {
-        clearAuth()
-      }
-    }
+    // 从响应式存储恢复状态
+    token.value = tokenStorage.value
+    userInfo.value = userInfoStorage.value
   }
 
   // 登录
@@ -43,13 +40,11 @@ export const useUserStore = defineStore('user', () => {
       if (response.data.success) {
         const { token: newToken, userInfo: newUserInfo } = response.data.data
 
-        // 保存到 store
+        // 保存到 store 和响应式存储
         token.value = newToken
         userInfo.value = newUserInfo
-
-        // 保存到本地存储
-        setTokenStorage(newToken)
-        setUserInfoStorage(newUserInfo)
+        tokenStorage.value = newToken
+        userInfoStorage.value = newUserInfo
 
         return { success: true }
       } else {
@@ -76,12 +71,11 @@ export const useUserStore = defineStore('user', () => {
       loading.value = true
       await authAPI.logout()
 
-      // 清除 store 状态
+      // 清除 store 状态和响应式存储
       token.value = null
       userInfo.value = null
-
-      // 清除本地存储
-      clearAuth()
+      tokenStorage.value = null
+      userInfoStorage.value = null
 
       return { success: true }
     } catch (error: any) {
@@ -89,7 +83,8 @@ export const useUserStore = defineStore('user', () => {
       // 即使登出失败，也要清除本地状态
       token.value = null
       userInfo.value = null
-      clearAuth()
+      tokenStorage.value = null
+      userInfoStorage.value = null
       return {
         success: false,
         error:
@@ -106,7 +101,7 @@ export const useUserStore = defineStore('user', () => {
       const response = await authAPI.getUserInfo()
       if (response.data.success) {
         userInfo.value = response.data.data
-        setUserInfoStorage(response.data.data)
+        userInfoStorage.value = response.data.data
         return { success: true }
       }
       return { success: false }
@@ -120,7 +115,7 @@ export const useUserStore = defineStore('user', () => {
   const updateUserInfo = (newUserInfo: Partial<UserInfo>) => {
     if (userInfo.value) {
       userInfo.value = { ...userInfo.value, ...newUserInfo }
-      setUserInfoStorage(userInfo.value)
+      userInfoStorage.value = userInfo.value
     }
   }
 

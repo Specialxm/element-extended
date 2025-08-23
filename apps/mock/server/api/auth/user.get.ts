@@ -17,7 +17,19 @@ export default defineEventHandler((event) => {
     email: 'admin@example.com',
     avatar: 'https://via.placeholder.com/40',
     role: 'admin',
-    permissions: ['dashboard', 'users', 'articles', 'categories']
+    permissions: [
+      'dashboard',
+      'system',
+      'users',
+      'roles',
+      'menus',
+      'content',
+      'articles',
+      'categories',
+      'monitor',
+      'online_users',
+      'operation_logs'
+    ]
   }
 
   return {

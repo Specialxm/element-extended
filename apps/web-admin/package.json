@@ -22,6 +22,7 @@
     "@nova/shared": "workspace:*",
     "@nova/shared-utils": "workspace:*",
     "@nova/ui": "workspace:*",
+    "@vueuse/core": "^9.13.0",
     "axios": "catalog:",
     "element-plus": "^2.11.0",
     "pinia": "^3.0.3",

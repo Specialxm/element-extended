@@ -117,7 +117,10 @@ export class AuthManager {
     // 模拟 API 调用
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (loginForm.username === 'admin' && loginForm.password === 'admin') {
+        if (
+          loginForm.username === 'admin' &&
+          loginForm.password === 'admin123456'
+        ) {
           resolve({
             token: 'mock_token_' + Date.now(),
             userInfo: {
